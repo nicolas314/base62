@@ -13,24 +13,19 @@ const (
 )
 
 func b62_encode(num uint64) string {
-    var rem uint64
     s:=""
     for num>0 {
-        rem = num % 62 ;
-        s=string(b62_digits[rem])+s
-        num = num / 62
+        s=string(b62_digits[num % 62])+s
+        num /= 62
     }
     return s
 }
 
 func b62_decode(s string) uint64 {
-    var (
-        num uint64
-        pow uint64
-    )
+    var num, pow uint64
     pow=1
     for i:=len(s)-1 ; i>=0 ; i-- {
-        num += pow * uint64(strings.Index(b62_digits, string(s[i])))
+        num += pow * uint64(strings.IndexByte(b62_digits, s[i]))
         pow *= 62
     }
     return num
