@@ -13,6 +13,9 @@ const (
 )
 
 func b62_encode(num uint64) string {
+    if num==0 {
+        return "0"
+    }
     s:=""
     for num>0 {
         s=string(b62_digits[num % 62])+s
